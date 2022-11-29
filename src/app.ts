@@ -8,7 +8,7 @@ import { resolve } from 'path'
 const OpenAI = require('openai-api')
 import parse from 'node-html-parser'
 
-const openai = new OpenAI(process.env.OPENAI_KEY || '')
+const openai = new OpenAI(process.env.OPENAI_API_KEY || '')
 
 void (async () => {
   console.log('Getting the data...')
@@ -37,7 +37,7 @@ void (async () => {
   }
   writeFileSync(
     resolve(cwd(), 'data', 'texts.json'),
-    JSON.stringify(result, undefined, 2)
+    result.map((v) => JSON.stringify(v)).join('\n')
   )
   console.log('Done!')
 })()
