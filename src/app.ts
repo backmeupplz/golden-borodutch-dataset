@@ -19,22 +19,25 @@ void (async () => {
   const start = 0
   for (let i = start; i < data.length; i++) {
     const datum = data[i]
-    console.log(`\n${i}. ${datum.completion}`)
-    const gptResponse = await openai.complete({
-      engine: 'text-davinci-003',
-      prompt: `${datum.completion.substring(0, 3000)}\nTL;DR in Russian: `,
-      n: 1,
-      stream: false,
-      temperature: 0.6,
-      max_tokens: 100,
+    // console.log(`\n${i}. ${datum.completion}`)
+    // const gptResponse = await openai.complete({
+    //   engine: 'text-davinci-003',
+    //   prompt: `${datum.completion.substring(0, 3000)}\nTL;DR in Russian: `,
+    //   n: 1,
+    //   stream: false,
+    //   temperature: 0.6,
+    //   max_tokens: 100,
+    // })
+    // const completion = gptResponse.data.choices[0].text.trim()
+    // console.log(`${i}. ${completion}`)
+    result.push({
+      prompt: `Borodutch opinion #${i}:\n`,
+      completion: datum.completion,
     })
-    const completion = gptResponse.data.choices[0].text.trim()
-    console.log(`${i}. ${completion}`)
-    result.push({ prompt: completion, completion: datum.completion })
-    writeFileSync(
-      resolve(cwd(), 'data', 'texts.json'),
-      JSON.stringify(result, undefined, 2)
-    )
   }
+  writeFileSync(
+    resolve(cwd(), 'data', 'texts.json'),
+    JSON.stringify(result, undefined, 2)
+  )
   console.log('Done!')
 })()
