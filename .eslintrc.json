@@ -23,7 +23,6 @@
     "plugin:prettier/recommended"
   ],
   "rules": {
-    "node/no-process-env": "error",
     "no-relative-import-paths/no-relative-import-paths": [
       "error",
       {
